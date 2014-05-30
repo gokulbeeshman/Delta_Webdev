@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<title> Circle </title>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+var angle=0;
+var radius=150;
+
+function rotate()		
+{	
+	if(angle<2*Math.PI)
+	{
+	ball.style.top=parseInt(150-radius*Math.sin(angle))+'px';			/* y coordinate = 150-rsin(angle) */	
+	//alert(radius*Math.sin(angle));
+	ball.style.left=parseInt(150+radius*Math.cos(angle))+'px';		/* x coordinate = 150+rcos(angle) */	
+	//alert(radius*Math.cos(angle));
+	angle+=0.02;
+	//alert(angle);
+	}
+	if(angle>=2*Math.PI)		/*to reset angle once it crosses 2pi */			
+	{
+		
+		angle=0;
+	}
+	setTimeout(rotate,10);		/* time gap */
+	
+}
+
+
+$("document").ready(function(){		/* sets initial coordinates, calls function to rotate */
+	ball=document.getElementById("ball");
+	ball.style.top='150px';
+	ball.style.left='300px';
+	rotate();
+
+});
+</script>
+
+</head>
+<style>
+
+#ball			/*defines the div as a ball */	
+{
+position:relative; 
+width:30px;		
+height:30px;
+background-color:blue;
+border-radius:15px;
+margin:25px;
+}
+#frame			/* defines frame in which div rotates */
+{
+width:375px;
+height:375px;
+border:5px double red;
+
+}
+</style>
+
+<body>
+<div id="frame">	
+<div id="ball">	
+</div>
+</div>
+</body>
+</html>

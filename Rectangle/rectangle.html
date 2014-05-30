@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+
+<style>
+#ball						/* Defines the ball */
+{
+position:relative;
+width:30px;
+height:30px;
+background-color:blue;
+border-radius:15px;
+}
+#frame					/* Defines frame within which ball moves */
+{
+width:550px;
+height:550px;
+position:relative;
+border:5px double red;
+padding:20px;
+margin:20px;
+}
+#forms{
+position:relative;
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+var inc = 3;			/* Amount of pixels incremented by */
+var dir ="right";
+var ball= null;
+var time=10;
+var length=300;		/* Length of rectangle traversed by ball */
+var breadth=100;	/* Breadth of rectangle traversed by ball */
+function move()						/* Called to move ball in appropriate direction */
+{	
+	
+	if (dir=="right")
+	{
+		if(parseInt(ball.style.left)<length)
+		{
+			ball.style.left=parseInt(ball.style.left)+inc+"px";
+		}
+		else{
+			dir="down";
+			}
+		setTimeout(move,time); /* Calls function after time gap */
+	}
+	else if (dir=="down")
+	{
+		if(parseInt(ball.style.top)<breadth)
+		{
+			ball.style.top=parseInt(ball.style.top)+inc+"px";
+		}
+		else{
+			dir="left";
+			}
+	setTimeout(move,time);
+	}
+	else if (dir=="left")
+	{
+		if(parseInt(ball.style.left)>0)
+		{
+			ball.style.left=parseInt(ball.style.left)-inc+"px";
+		}
+		else{
+			dir="up";
+			}
+		setTimeout(move,time);
+	}
+	else if (dir=="up")
+	{
+		if(parseInt(ball.style.top)>0)
+		{
+			ball.style.top=parseInt(ball.style.top)-inc+"px";
+		}
+		else{
+			dir="right";
+			}
+			setTimeout(move,time);
+	}
+}
+$(document).ready(function(){
+ball = document.getElementById('ball');
+ball.style.left = '0px';
+ball.style.top = '0px';
+move();
+$("#buttonl").click(function(){					/* Allows adjustment of time taken to move again, thereby adjusting speed */
+if ($("#speed").val()>=0 && $("#speed").val()<=10)		/* This way, the animation IS ALWAYS SMOOTH */
+{
+time=$("#speed").val();
+time=30/parseInt(time);
+}
+else{alert("Enter a value between 1 and 10");}
+});
+
+$("#button2").click(function(){					/* Changes length of rectangle */
+if ($("#length").val()>=100 && $("#length").val()<=500)
+{
+length=$("#length").val();
+}else{alert("Enter a value between 100 and 500");}
+});
+		
+$("#button3").click(function(){					/* Changes breadth of rectangle */
+if ($("#breadth").val()>=100 && $("#breadth").val()<=500)
+{
+breadth=$("#breadth").val();
+}else{alert("Enter a value between 100 and 500");}
+});
+
+});
+</script>
+</head>
+<body>
+<div id="frame">
+<div id="ball">
+</div>
+<br>
+</div>
+<div id="forms">
+Set speed (between 1 and 10):
+<input type="text" id="speed">
+<input type="button" id="buttonl" value="Submit">
+</div>
+<div id="mod2">
+Set length (between 100 and 500):
+<input type="text" id="length">
+<input type="button" id="button2" value="Submit">
+</div>
+<div id="mod3">
+Set breadth (between 100 and 500):
+<input type="text" id="breadth">
+<input type="button" id="button3" value="Submit">
+</div>
+
+</body>
+</html>
